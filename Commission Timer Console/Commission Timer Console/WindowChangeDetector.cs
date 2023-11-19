@@ -5,8 +5,8 @@ using System.Text;
 //TODO: makes this static
 internal static class WindowChangeDetector
 {
-    private const int nChars = 256;
-    private static bool active = false;
+    private static Thread detectChangeThread;
+    private static bool runThread = false;
 
     private static Process currentWindowProcess;
 
@@ -41,7 +41,7 @@ internal static class WindowChangeDetector
 
     private static void DetectActiveWindowChange()
     {
-        while (active)
+        while (runThread)
         {
             IntPtr handle = (IntPtr)GetForegroundWindow();
 
@@ -56,18 +56,19 @@ internal static class WindowChangeDetector
 
     public static void StartActiveWindowChangeDetection()
     {
-        if (active)
+        if (detectChangeThread != null && detectChangeThread.IsAlive)
         {
-            //already active
             return;
         }
 
-        active = true;
-        DetectActiveWindowChange();
+        runThread = true;
+
+        detectChangeThread = new Thread(DetectActiveWindowChange);
+        detectChangeThread.Start();
     }
 
     public static void StopActiveWindowChangeDetection()
     {
-        active = false;
+        runThread = false;
     }
 }

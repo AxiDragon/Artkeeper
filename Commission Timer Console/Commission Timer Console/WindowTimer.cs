@@ -2,10 +2,9 @@
 
 internal class WindowTimer
 {
+    private bool runThread = false;
     private Stopwatch stopwatch = new Stopwatch();
-    //TODO: get a proper way to identify the window
-    //window name can change, multiple windows can have the same class name,
-    //and process id changes every time the window is opened
+    private Thread stopwatchThread;
     private Process processToCheckFor;
 
     public WindowTimer()
@@ -22,13 +21,43 @@ internal class WindowTimer
 
         if (windowProcess.Modules[0].FileName == processToCheckFor.Modules[0].FileName)
         {
-            Console.WriteLine("Starting stopwatch");
-            stopwatch.Start();
+            StartTimer();
         }
         else
         {
+            Console.WriteLine("Stopping timer");
+            StopTimer();
+        }
+    }
+
+    private void StopTimer()
+    {
+        runThread = false;
+        stopwatch.Stop();
+    }
+
+    private void StartTimer()
+    {
+        if (stopwatchThread != null && stopwatchThread.IsAlive)
+        {
+            return;
+        }
+
+        stopwatchThread = new Thread(RunStopwatch);
+
+        stopwatchThread.Start();
+    }
+
+    private void RunStopwatch()
+    {
+        runThread = true;
+        stopwatch.Start();
+
+        while (runThread)
+        {
             Console.WriteLine("Time spent on window: " + stopwatch.Elapsed);
-            stopwatch.Stop();
+
+            Thread.Sleep(100);
         }
     }
 
