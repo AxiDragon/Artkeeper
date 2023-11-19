@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 internal class WindowTimer
 {
@@ -7,66 +6,71 @@ internal class WindowTimer
     //TODO: get a proper way to identify the window
     //window name can change, multiple windows can have the same class name,
     //and process id changes every time the window is opened
-    private string windowClassToCheckFor = string.Empty;
+    private Process processToCheckFor;
 
     public WindowTimer()
     {
-        string windowTitle = GetWindowTitleToCheckFor();
+        processToCheckFor = GetProcessToCheckFor();
+        Console.WriteLine("Tracking for: " + processToCheckFor.MainWindowTitle);
 
-        WindowChangeDetector.OnWindowTitleChanged += OnWindowTitleChanged;
-        //check if the window is already active
-        OnWindowTitleChanged(WindowChangeDetector.CurrentWindowName);
+        WindowChangeDetector.OnWindowProcessChanged += OnWindowProcessChanged;
     }
 
-    private void OnWindowTitleChanged(string windowTitle)
+    private void OnWindowProcessChanged(Process windowProcess)
     {
-        Console.WriteLine("New class: " + windowTitle);
+        Console.WriteLine("New Process: " + windowProcess);
 
-        if (windowTitle == windowClassToCheckFor)
+        if (windowProcess.Modules[0].FileName == processToCheckFor.Modules[0].FileName)
         {
+            Console.WriteLine("Starting stopwatch");
             stopwatch.Start();
         }
         else
         {
+            Console.WriteLine("Time spent on window: " + stopwatch.Elapsed);
             stopwatch.Stop();
         }
     }
 
-    private string GetWindowTitleToCheckFor()
+    private Process GetProcessToCheckFor()
     {
         Console.WriteLine("Select the window you want to track: ");
-        List<string> windowTitles = GetWindowTitles();
+        List<Process> processWindows = GetProcessWindows();
 
-        for (int i = 0; i < windowTitles.Count; i++)
+        for (int i = 0; i < processWindows.Count; i++)
         {
-            Console.WriteLine(i + ": " + windowTitles[i]);
+            Console.WriteLine(i + ": " + processWindows[i].MainWindowTitle);
         }
 
-        while (true)
+        Process? processToCheckFor = null;
+
+        do
         {
             Console.WriteLine("Enter the number of the window you want to track: ");
             string? input = Console.ReadLine();
 
             if (input == null)
             {
-                Console.WriteLine("Invalid input!");
+                Console.WriteLine("Invalid input! Please enter a number between " + 0 + " and " + (processWindows.Count - 1));
                 continue;
             }
 
             bool gotIndex = int.TryParse(input, out int index);
 
-            if (gotIndex && index >= 0 && index < windowTitles.Count)
+            if (gotIndex && index >= 0 && index < processWindows.Count)
             {
-                return windowTitles[index];
+                return processWindows[index];
             }
 
-            Console.WriteLine("Invalid input!");
-        }
+            Console.WriteLine("Invalid input! Please enter a number between " + 0 + " and " + (processWindows.Count - 1));
+        } while (processToCheckFor == null);
+
+        return processToCheckFor;
     }
 
-    private List<string> GetWindowTitles()
+    private List<Process> GetProcessWindows()
     {
-        List<string> windowTitles = new List<string>();
+        List<Process> windowProcesses = new List<Process>();
 
         Process[] processList = Process.GetProcesses();
 
@@ -74,10 +78,11 @@ internal class WindowTimer
         {
             if (!string.IsNullOrEmpty(process.MainWindowTitle))
             {
-                windowTitles.Add(process.MainWindowTitle);
+                //this process has a window
+                windowProcesses.Add(process);
             }
         }
 
-        return windowTitles;
+        return windowProcesses;
     }
 }

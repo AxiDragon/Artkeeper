@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
 
 //TODO: makes this static
@@ -7,39 +8,46 @@ internal static class WindowChangeDetector
     private const int nChars = 256;
     private static bool active = false;
 
-    private static string currentWindowName = string.Empty;
+    private static Process currentWindowProcess;
 
-    public static string CurrentWindowName
+    public static Process CurrentWindowProcess
     {
-        get => currentWindowName;
+        get => currentWindowProcess;
         set
         {
-            if (currentWindowName != value)
+            if (currentWindowProcess == null)
             {
-                currentWindowName = value;
-                OnWindowTitleChanged?.Invoke(value);
+                //first assignment
+                currentWindowProcess = value;
+                OnWindowProcessChanged?.Invoke(value);
+                return;
+            }
+
+            if (currentWindowProcess.Id != value.Id)
+            {
+                currentWindowProcess = value;
+                OnWindowProcessChanged?.Invoke(value);
             }
         }
     }
 
-    public static event Action<string> OnWindowTitleChanged = delegate { };
+    public static event Action<Process> OnWindowProcessChanged = delegate { };
 
     [DllImport("user32.dll")]
     public static extern int GetForegroundWindow();
 
-    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-    public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+    [DllImport("user32.dll")]
+    public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
     private static void DetectActiveWindowChange()
     {
         while (active)
         {
             IntPtr handle = (IntPtr)GetForegroundWindow();
-            StringBuilder className = new StringBuilder(nChars);
 
-            if (GetClassName(handle, className, nChars) > 0)
+            if (GetWindowThreadProcessId(handle, out uint processId) != 0)
             {
-                CurrentWindowName = className.ToString();
+                CurrentWindowProcess = Process.GetProcessById((int)processId);
             }
 
             Thread.Sleep(100);
