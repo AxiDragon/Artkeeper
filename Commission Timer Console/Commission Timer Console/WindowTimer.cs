@@ -54,13 +54,7 @@ internal class WindowTimer
 
         while (runThread)
         {
-            Console.SetCursorPosition(0, Console.CursorTop);
-
-            Console.Write(new string(' ', Console.WindowWidth));
-
-            Console.SetCursorPosition(0, Console.CursorTop);
-
-            Console.Write($"Time spent: {stopwatch.Elapsed:hh\\:mm\\:ss}");
+            Console.Write($"\rTime spent: {stopwatch.Elapsed:hh\\:mm\\:ss}");
 
             Thread.Sleep(1000);
         }
