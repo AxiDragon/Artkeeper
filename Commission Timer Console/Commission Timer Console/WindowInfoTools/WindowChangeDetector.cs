@@ -1,15 +1,15 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
 
-internal class WindowChangeDetector
+//TODO: makes this static
+internal static class WindowChangeDetector
 {
-    //TODO: makes this static
     private const int nChars = 256;
-    private bool active = true;
+    private static bool active = false;
 
-    private string currentWindowName = string.Empty;
+    private static string currentWindowName = string.Empty;
 
-    public string CurrentWindowName
+    public static string CurrentWindowName
     {
         get => currentWindowName;
         set
@@ -18,13 +18,11 @@ internal class WindowChangeDetector
             {
                 currentWindowName = value;
                 OnWindowTitleChanged?.Invoke(value);
-
-                Console.WriteLine("New class: " + CurrentWindowName);
             }
         }
     }
 
-    public event Action<string> OnWindowTitleChanged;
+    public static event Action<string> OnWindowTitleChanged = delegate { };
 
     [DllImport("user32.dll")]
     public static extern int GetForegroundWindow();
@@ -32,30 +30,36 @@ internal class WindowChangeDetector
     [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
     public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
-    [DllImport("user32.dll")]
-    public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-
-    public WindowChangeDetector(Action<string> action)
-    {
-        OnWindowTitleChanged += action;
-
-        DetectActiveWindowChange();
-    }
-
-    private void DetectActiveWindowChange()
+    private static void DetectActiveWindowChange()
     {
         while (active)
         {
             IntPtr handle = (IntPtr)GetForegroundWindow();
             StringBuilder className = new StringBuilder(nChars);
-            StringBuilder windowTitle = new StringBuilder(nChars);
 
             if (GetClassName(handle, className, nChars) > 0)
             {
                 CurrentWindowName = className.ToString();
             }
 
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
         }
+    }
+
+    public static void StartActiveWindowChangeDetection()
+    {
+        if (active)
+        {
+            //already active
+            return;
+        }
+
+        active = true;
+        DetectActiveWindowChange();
+    }
+
+    public static void StopActiveWindowChangeDetection()
+    {
+        active = false;
     }
 }

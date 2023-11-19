@@ -1,21 +1,27 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 internal class WindowTimer
 {
     private Stopwatch stopwatch = new Stopwatch();
+    //TODO: get a proper way to identify the window
+    //window name can change, multiple windows can have the same class name,
+    //and process id changes every time the window is opened
     private string windowClassToCheckFor = string.Empty;
 
     public WindowTimer()
     {
         string windowTitle = GetWindowTitleToCheckFor();
 
-
-
-        WindowChangeDetector windowChangeDetector = new WindowChangeDetector(OnWindowTitleChanged);
+        WindowChangeDetector.OnWindowTitleChanged += OnWindowTitleChanged;
+        //check if the window is already active
+        OnWindowTitleChanged(WindowChangeDetector.CurrentWindowName);
     }
 
     private void OnWindowTitleChanged(string windowTitle)
     {
+        Console.WriteLine("New class: " + windowTitle);
+
         if (windowTitle == windowClassToCheckFor)
         {
             stopwatch.Start();
@@ -62,9 +68,9 @@ internal class WindowTimer
     {
         List<string> windowTitles = new List<string>();
 
-        Process[] processlist = Process.GetProcesses();
+        Process[] processList = Process.GetProcesses();
 
-        foreach (Process process in processlist)
+        foreach (Process process in processList)
         {
             if (!string.IsNullOrEmpty(process.MainWindowTitle))
             {
