@@ -1,2 +1,2 @@
-# Commission Timer
+# Artkeeper
  Program to assist artists and other creatives in tracking their time.
