@@ -5,27 +5,26 @@ internal class WindowTimer
     private bool runThread = false;
     private Stopwatch stopwatch = new Stopwatch();
     private Thread stopwatchThread;
+
     private Process processToCheckFor;
 
     public WindowTimer()
     {
         processToCheckFor = GetProcessToCheckFor();
-        Console.WriteLine("Tracking for: " + processToCheckFor.MainWindowTitle);
+        Console.Clear();
+        Console.WriteLine("Tracking " + processToCheckFor.MainWindowTitle);
 
         WindowChangeDetector.OnWindowProcessChanged += OnWindowProcessChanged;
     }
 
     private void OnWindowProcessChanged(Process windowProcess)
     {
-        Console.WriteLine("New Process: " + windowProcess);
-
         if (windowProcess.Modules[0].FileName == processToCheckFor.Modules[0].FileName)
         {
             StartTimer();
         }
         else
         {
-            Console.WriteLine("Stopping timer");
             StopTimer();
         }
     }
@@ -55,9 +54,15 @@ internal class WindowTimer
 
         while (runThread)
         {
-            Console.WriteLine("Time spent on window: " + stopwatch.Elapsed);
+            Console.SetCursorPosition(0, Console.CursorTop);
 
-            Thread.Sleep(100);
+            Console.Write(new string(' ', Console.WindowWidth));
+
+            Console.SetCursorPosition(0, Console.CursorTop);
+
+            Console.Write($"Time spent: {stopwatch.Elapsed:hh\\:mm\\:ss}");
+
+            Thread.Sleep(1000);
         }
     }
 

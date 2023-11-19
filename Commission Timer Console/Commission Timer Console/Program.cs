@@ -2,7 +2,7 @@
 {
     private static void Main()
     {
-        WindowTimer windowTimer = new WindowTimer();
+        new WindowTimer();
         WindowChangeDetector.StartActiveWindowChangeDetection();
     }
 }

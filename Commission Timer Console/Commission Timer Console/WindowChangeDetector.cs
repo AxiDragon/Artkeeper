@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
 
-//TODO: makes this static
 internal static class WindowChangeDetector
 {
     private static Thread detectChangeThread;
