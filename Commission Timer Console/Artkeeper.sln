@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artkeeper", "Commission Timer Console\Artkeeper.csproj", "{58871131-5AFD-40BE-9D8E-0AE22BCF5C88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artkeeper", "Artkeeper\Artkeeper.csproj", "{AB341F7B-6796-47D6-B571-5394C4DA3001}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{58871131-5AFD-40BE-9D8E-0AE22BCF5C88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58871131-5AFD-40BE-9D8E-0AE22BCF5C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58871131-5AFD-40BE-9D8E-0AE22BCF5C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58871131-5AFD-40BE-9D8E-0AE22BCF5C88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB341F7B-6796-47D6-B571-5394C4DA3001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB341F7B-6796-47D6-B571-5394C4DA3001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB341F7B-6796-47D6-B571-5394C4DA3001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB341F7B-6796-47D6-B571-5394C4DA3001}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {08620DC1-BC07-412C-BF62-6E3CB06E5BE7}
+		SolutionGuid = {CD4691AA-845F-4865-B6C2-D8AA1B26D8AF}
 	EndGlobalSection
 EndGlobal
