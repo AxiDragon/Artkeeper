@@ -12,7 +12,7 @@ internal class WindowTimer
     {
         processToCheckFor = GetProcessToCheckFor();
         Console.Clear();
-        Console.WriteLine("Tracking " + processToCheckFor.MainWindowTitle);
+        Console.WriteLine("Tracking " + GetProcessInfoString(processToCheckFor));
 
         WindowChangeDetector.OnWindowProcessChanged += OnWindowProcessChanged;
     }
@@ -67,7 +67,7 @@ internal class WindowTimer
 
         for (int i = 0; i < processWindows.Count; i++)
         {
-            Console.WriteLine(i + ": " + processWindows[i].MainWindowTitle);
+            Console.WriteLine(i + ": " + GetProcessInfoString(processWindows[i]));
         }
 
         Process? processToCheckFor = null;
@@ -94,6 +94,11 @@ internal class WindowTimer
         } while (processToCheckFor == null);
 
         return processToCheckFor;
+    }
+
+    private string GetProcessInfoString(Process process)
+    {
+        return process.MainWindowTitle + " (" + Path.GetFileName(process.Modules[0].FileName) + ")";
     }
 
     private List<Process> GetProcessWindows()
