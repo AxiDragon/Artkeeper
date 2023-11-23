@@ -1,5 +1,4 @@
 ﻿using Artkeeper.ElementClasses;
-using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,6 +31,7 @@ namespace Artkeeper
             timer = new WindowTimer(windowProcessSelector.GetProcess());
 
             updateThread = new Thread(UpdateLoop);
+            updateThread.IsBackground = true;
             updateThread.Start();
         }
 

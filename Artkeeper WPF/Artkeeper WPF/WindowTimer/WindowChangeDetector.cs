@@ -65,6 +65,7 @@ internal static class WindowChangeDetector
         runThread = true;
 
         detectChangeThread = new Thread(DetectActiveWindowChange);
+        detectChangeThread.IsBackground = true;
         detectChangeThread.Start();
     }
 
