@@ -7,11 +7,9 @@
         mc:Ignorable="d"
         Title="Artkeeper" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="15*"/>
-            <ColumnDefinition Width="52*"/>
-            <ColumnDefinition Width="733*"/>
-        </Grid.ColumnDefinitions>
-
+        <ComboBox Name="WindowSelector" Width="120" Height="40" Margin="45,41,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" SelectedValue="1">
+        </ComboBox>
+        <Label Name="TimerLabel" Width="275" Margin="45,80,0,0" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button Content="Start Timer!" Width="150" Margin="170,40,0,0" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Click="TimerButton_ClickStart"/>
     </Grid>
 </Window>
