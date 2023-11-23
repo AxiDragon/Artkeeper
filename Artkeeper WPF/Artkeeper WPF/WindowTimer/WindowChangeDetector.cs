@@ -8,25 +8,22 @@ internal static class WindowChangeDetector
     private static Thread detectChangeThread;
     private static bool runThread = false;
 
-    private static Process currentWindowProcess;
+    private static IntPtr currentWindowProcessPtr;
 
-    public static Process CurrentWindowProcess
+    public static IntPtr CurrentWindowProcessPtr
     {
-        get => currentWindowProcess;
+        get => currentWindowProcessPtr;
         set
         {
-            if (currentWindowProcess == null)
+            if (currentWindowProcessPtr != value)
             {
-                //first assignment
-                currentWindowProcess = value;
-                OnWindowProcessChanged?.Invoke(value);
-                return;
-            }
+                Debug.WriteLine("Window changed");
+                currentWindowProcessPtr = value;
 
-            if (currentWindowProcess.Id != value.Id)
-            {
-                currentWindowProcess = value;
-                OnWindowProcessChanged?.Invoke(value);
+                if (GetWindowThreadProcessId(value, out uint processId) != 0)
+                {
+                    OnWindowProcessChanged?.Invoke(Process.GetProcessById((int)processId));
+                }
             }
         }
     }
@@ -43,13 +40,7 @@ internal static class WindowChangeDetector
     {
         while (runThread)
         {
-            //TODO: just compare intptrs instead of getting process, should be faster
-            IntPtr handle = (IntPtr)GetForegroundWindow();
-
-            if (GetWindowThreadProcessId(handle, out uint processId) != 0)
-            {
-                CurrentWindowProcess = Process.GetProcessById((int)processId);
-            }
+            CurrentWindowProcessPtr = (IntPtr)GetForegroundWindow();
 
             Thread.Sleep(100);
         }
