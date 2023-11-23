@@ -29,8 +29,6 @@ namespace Artkeeper
 
         public void TimerButton_ClickStart(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("Start button clicked");
-
             timer = new WindowTimer(windowProcessSelector.GetProcess());
 
             updateThread = new Thread(UpdateLoop);
