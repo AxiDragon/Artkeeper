@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Artkeeper"
         mc:Ignorable="d"
         BorderThickness="0"
-        Title="Artkeeper" Height="450" Width="800">
+        ResizeMode="NoResize"
+        Title="Artkeeper" Height="160" Width="440">
     <Grid>
         <ComboBox Name="WindowSelector" Width="200" Height="20" Margin="45,41,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Label Name="TimerLabel" Width="200" Margin="45,66,0,0" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
