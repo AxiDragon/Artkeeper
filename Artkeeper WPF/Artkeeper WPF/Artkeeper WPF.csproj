@@ -6,16 +6,24 @@
     <RootNamespace>Artkeeper</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
     <AssemblyName>Artkeeper</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="icon.ico" />
+    <None Remove="Resources\Comfortaa.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="WindowTimer\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Comfortaa.ttf" />
   </ItemGroup>
 
 </Project>

@@ -6,11 +6,30 @@
         xmlns:local="clr-namespace:Artkeeper"
         mc:Ignorable="d"
         BorderThickness="0"
-        ResizeMode="NoResize"
-        Title="Artkeeper" Height="160" Width="440">
+        Title="Artkeeper" Height="391" Width="688"
+        Background="{StaticResource LightShade}"
+        FontSize="20"
+        FontFamily="/Resources/#Comfortaa">
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource LightAccent}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource DarkAccent}"/>
+            <Setter Property="Foreground" Value="{StaticResource DarkShade}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <ComboBox Name="WindowSelector" Width="200" Height="20" Margin="45,41,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Name="TimerLabel" Width="200" Margin="45,66,0,0" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
-        <Button Content="Start Timer!" Width="118" Margin="250,40,0,0" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Click="TimerButton_ClickStart"/>
+        <ComboBox Name="WindowSelector" Width="328" Height="33" Margin="45,41,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Style="{StaticResource Comfortaa}" Name="TimerLabel" Width="328" Margin="45,79,0,0" HorizontalAlignment="Left" Height="49" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Button Style="{StaticResource ButtonStyle}" Content="Start Timer!" Width="194" Margin="385,40,0,0" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Click="TimerButton_ClickStart"/>
     </Grid>
 </Window>

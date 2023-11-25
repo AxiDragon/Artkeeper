@@ -4,6 +4,15 @@
              xmlns:local="clr-namespace:Artkeeper"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="Comfortaa">
+            <Setter Property="TextElement.FontFamily" Value="/Resources/#Comfortaa"/>
+        </Style>
+        <SolidColorBrush x:Key="DarkMain" Color="#78555B"/>
+        <SolidColorBrush x:Key="Main" Color="#D199A3"/>
+        <SolidColorBrush x:Key="LightMain" Color="#F2B1BC"/>
+        <SolidColorBrush x:Key="DarkAccent" Color="#A0B7A3"/>
+        <SolidColorBrush x:Key="LightAccent" Color="#DCE7DE"/>
+        <SolidColorBrush x:Key="DarkShade" Color="#1E191B"/>
+        <SolidColorBrush x:Key="LightShade" Color="#EFF9EF"/>
     </Application.Resources>
 </Application>
