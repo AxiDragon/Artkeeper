@@ -14,5 +14,6 @@
         <SolidColorBrush x:Key="LightAccent" Color="#DCE7DE"/>
         <SolidColorBrush x:Key="DarkShade" Color="#1E191B"/>
         <SolidColorBrush x:Key="LightShade" Color="#EFF9EF"/>
+        <Color x:Key="DarkAccentColor">#A0B7A3</Color>
     </Application.Resources>
 </Application>

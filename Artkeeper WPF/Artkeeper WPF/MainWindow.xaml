@@ -7,29 +7,31 @@
         mc:Ignorable="d"
         BorderThickness="0"
         Title="Artkeeper" Height="391" Width="688"
-        Background="{StaticResource LightShade}"
-        FontSize="20"
+        Background="White"
         FontFamily="/Resources/#Comfortaa">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource LightAccent}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource DarkAccent}"/>
-            <Setter Property="Foreground" Value="{StaticResource DarkShade}"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0" Background="{StaticResource LightAccent}" CornerRadius="5,16,16,5">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="0" ShadowDepth="3" Direction="-90" Color="{StaticResource DarkAccentColor}"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
     <Grid>
-        <ComboBox Name="WindowSelector" Width="328" Height="33" Margin="45,41,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Style="{StaticResource Comfortaa}" Name="TimerLabel" Width="328" Margin="45,79,0,0" HorizontalAlignment="Left" Height="49" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Label.RenderTransform>
-        </Label>
-        <Button Style="{StaticResource ButtonStyle}" Content="Start Timer!" Width="194" Margin="385,40,0,0" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Click="TimerButton_ClickStart"/>
+        <Grid>
+            
+        <ComboBox Name="WindowSelector" Width="328" Height="31" Margin="45,41,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Style="{StaticResource Comfortaa}" Name="TimerLabel" Width="328" Margin="45,79,0,0" HorizontalAlignment="Left" Height="49" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="Start Timer!" Width="148" Margin="378,40,0,0" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Click="TimerButton_ClickStart"/>
+        </Grid>
     </Grid>
 </Window>
