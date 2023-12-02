@@ -43,7 +43,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border BorderThickness="0" Background="{StaticResource LightAccent}" CornerRadius="15,65,65,15">
+                        <Border BorderThickness="0" Background="{StaticResource DarkAccent}" CornerRadius="15,65,65,15">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualStateGroup.Transitions>
@@ -52,12 +52,12 @@
                                     <VisualState x:Name="Normal"/>
                                     <VisualState x:Name="Pressed">
                                         <Storyboard>
-                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="{StaticResource DarkAccentColor}"/>
+                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="{StaticResource LightAccentColor}"/>
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="MouseOver">
                                         <Storyboard>
-                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="{StaticResource DarkAccentColor}"/>
+                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="{StaticResource LightAccentColor}"/>
                                         </Storyboard>
                                     </VisualState>
                                 </VisualStateGroup>
