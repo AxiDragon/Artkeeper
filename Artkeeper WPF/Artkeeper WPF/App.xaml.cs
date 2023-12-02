@@ -3,7 +3,7 @@
 namespace Artkeeper
 {
     /// <summary>
-    /// Interaction logic for
+    /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {

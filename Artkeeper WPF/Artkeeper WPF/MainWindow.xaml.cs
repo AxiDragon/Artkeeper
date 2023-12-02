@@ -54,7 +54,7 @@ namespace Artkeeper
             {
                 timerLabel.Dispatcher.Invoke(() =>
                 {
-                    timerLabel.Content = $"Time elapsed: {timer.GetTimeElapsed():hh\\:mm\\:ss}";
+                    timerLabel.Content = $"{timer.GetTimeElapsed():hh\\:mm\\:ss}";
                 });
             }
         }

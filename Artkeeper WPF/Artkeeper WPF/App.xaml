@@ -4,16 +4,22 @@
              xmlns:local="clr-namespace:Artkeeper"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style x:Key="Comfortaa">
-            <Setter Property="TextElement.FontFamily" Value="/Resources/#Comfortaa"/>
-        </Style>
+        <FontFamily x:Key="Roboto">/Resources/#Roboto</FontFamily>
         <SolidColorBrush x:Key="DarkMain" Color="#78555B"/>
+        <Color x:Key="DarkMainColor">#78555B</Color>
         <SolidColorBrush x:Key="Main" Color="#D199A3"/>
+        <Color x:Key="MainColor">#D199A3</Color>
         <SolidColorBrush x:Key="LightMain" Color="#F2B1BC"/>
+        <Color x:Key="LightMainColor">#F2B1BC</Color>
         <SolidColorBrush x:Key="DarkAccent" Color="#A0B7A3"/>
-        <SolidColorBrush x:Key="LightAccent" Color="#DCE7DE"/>
-        <SolidColorBrush x:Key="DarkShade" Color="#1E191B"/>
-        <SolidColorBrush x:Key="LightShade" Color="#EFF9EF"/>
         <Color x:Key="DarkAccentColor">#A0B7A3</Color>
+        <SolidColorBrush x:Key="LightAccent" Color="#DCE7DE"/>
+        <Color x:Key="LightAccentColor">#DCE7DE</Color>
+        <SolidColorBrush x:Key="DarkShade" Color="#1E191B"/>
+        <Color x:Key="DarkShadeColor">#1E191B</Color>
+        <SolidColorBrush x:Key="Shade" Color="#3C3638"/>
+        <Color x:Key="ShadeColor">#3C3638</Color>
+        <SolidColorBrush x:Key="LightShade" Color="#EFF9EF"/>
+        <Color x:Key="LightShadeColor">#EFF9EF</Color>
     </Application.Resources>
 </Application>

@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Comfortaa.ttf" />
+    <None Remove="Resources\Roboto.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Comfortaa.ttf" />
+    <Resource Include="Resources\Roboto.ttf" />
   </ItemGroup>
 
 </Project>

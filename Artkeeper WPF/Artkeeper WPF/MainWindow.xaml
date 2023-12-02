@@ -6,20 +6,63 @@
         xmlns:local="clr-namespace:Artkeeper"
         mc:Ignorable="d"
         BorderThickness="0"
-        Title="Artkeeper" Height="391" Width="688"
-        Background="White"
-        FontFamily="/Resources/#Comfortaa">
+        Title="Artkeeper" Height="391" Width="840"
+        FontSize="15"
+        Background="{StaticResource DarkShade}"
+        Foreground="{StaticResource DarkShade}"
+        FontFamily="{StaticResource Roboto}">
     <Window.Resources>
+        <Style x:Key="TimerLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="Foreground" Value="{StaticResource LightShade}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border BorderThickness="0" Background="{StaticResource DarkAccent}" CornerRadius="5,15,15,45">
+                            <ContentPresenter HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="FontSize" Value="45"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Border BorderThickness="0" Background="{StaticResource LightShade}" CornerRadius="45,15,15,5">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="65"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border BorderThickness="0" Background="{StaticResource LightAccent}" CornerRadius="5,16,16,5">
-                            <Border.Effect>
-                                <DropShadowEffect BlurRadius="0" ShadowDepth="3" Direction="-90" Color="{StaticResource DarkAccentColor}"/>
-                            </Border.Effect>
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border BorderThickness="0" Background="{StaticResource LightAccent}" CornerRadius="15,65,65,15">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.1"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="{StaticResource DarkAccentColor}"/>
+                                            <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="{StaticResource LightShadeColor}"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="{StaticResource DarkAccentColor}"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -27,11 +70,10 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid>
-            
-        <ComboBox Name="WindowSelector" Width="328" Height="31" Margin="45,41,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Style="{StaticResource Comfortaa}" Name="TimerLabel" Width="328" Margin="45,79,0,0" HorizontalAlignment="Left" Height="49" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="Start Timer!" Width="148" Margin="378,40,0,0" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Click="TimerButton_ClickStart"/>
+        <Grid Name="Timer">
+            <ComboBox Style="{StaticResource ComboBoxStyle}" Name="WindowSelector" Width="328" Height="62" Margin="45,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Label Style="{StaticResource TimerLabelStyle}" Content="00:00:00" Name="TimerLabel" Width="328" Margin="45,108,0,0" HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5"/>
+            <Button Style="{StaticResource ButtonStyle}" Content="Start" Width="212" Margin="378,40,0,0" HorizontalAlignment="Left" Height="130" VerticalAlignment="Top" Click="TimerButton_ClickStart"/>
         </Grid>
     </Grid>
 </Window>
