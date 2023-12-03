@@ -17,7 +17,6 @@ internal static class WindowChangeDetector
         {
             if (currentWindowProcessPtr != value)
             {
-                Debug.WriteLine("Window changed");
                 currentWindowProcessPtr = value;
 
                 if (GetWindowThreadProcessId(value, out uint processId) != 0)
