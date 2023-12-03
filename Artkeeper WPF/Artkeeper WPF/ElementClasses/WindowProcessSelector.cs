@@ -59,12 +59,7 @@ namespace Artkeeper.ElementClasses
             {
                 Process process = windowProcesses[i];
 
-                if (excludedWindows.Contains(process.GetProcessFileName()))
-                {
-                    continue;
-                }
-
-                windowSelector.Items.Add(process.GetProcessInfoString());
+                windowSelector.Items.Add(process.GetProcessInfoString(true));
 
                 if (process.Id == currentSelectionId)
                 {
@@ -83,9 +78,8 @@ namespace Artkeeper.ElementClasses
 
             foreach (Process process in processList)
             {
-                if (!string.IsNullOrEmpty(process.MainWindowTitle))
+                if (!string.IsNullOrEmpty(process.MainWindowTitle) && !excludedWindows.Contains(process.GetProcessFileName()))
                 {
-                    //this process has a window
                     windowProcesses.Add(process);
                 }
             }
