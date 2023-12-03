@@ -9,5 +9,10 @@ namespace Artkeeper.Extensions
         {
             return process.MainWindowTitle + " (" + Path.GetFileName(process.MainModule?.FileName) + ")";
         }
+
+        public static string GetProcessFileName(this Process process)
+        {
+            return Path.GetFileName(process.MainModule?.FileName);
+        }
     }
 }

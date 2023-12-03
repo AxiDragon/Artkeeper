@@ -8,6 +8,9 @@ namespace Artkeeper.ElementClasses
 {
     internal class WindowProcessSelector
     {
+        //this is a list of processes that have windows but are not visible/useful to the user to select
+        private static readonly List<string> excludedWindows = new List<string>{ "SystemSettings.exe", "ApplicationFrameHost.exe", "TextInputHost.exe" };
+        
         private ComboBox windowSelector;
         private Process selectedProcess;
         private List<Process> windowProcesses = new List<Process>();
@@ -55,6 +58,12 @@ namespace Artkeeper.ElementClasses
             for (int i = 0; i < windowProcesses.Count; i++)
             {
                 Process process = windowProcesses[i];
+
+                if (excludedWindows.Contains(process.GetProcessFileName()))
+                {
+                    continue;
+                }
+
                 windowSelector.Items.Add(process.GetProcessInfoString());
 
                 if (process.Id == currentSelectionId)
