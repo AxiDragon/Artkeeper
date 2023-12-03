@@ -17,8 +17,8 @@
         <Color x:Key="LightAccentColor">#DCE7DE</Color>
         <SolidColorBrush x:Key="DarkShade" Color="#1E191B"/>
         <Color x:Key="DarkShadeColor">#1E191B</Color>
-        <SolidColorBrush x:Key="Shade" Color="#3C3638"/>
-        <Color x:Key="ShadeColor">#3C3638</Color>
+        <SolidColorBrush x:Key="Shade" Color="#6B6063"/>
+        <Color x:Key="ShadeColor">#6B6063</Color>
         <SolidColorBrush x:Key="LightShade" Color="#EFF9EF"/>
         <Color x:Key="LightShadeColor">#EFF9EF</Color>
     </Application.Resources>
