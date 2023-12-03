@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Artkeeper.ElementClasses
 {
     internal class WindowProcessSelector
     {
         //this is a list of processes that have windows but are not visible/useful to the user to select
-        private static readonly List<string> excludedWindows = new List<string>{ "SystemSettings.exe", "ApplicationFrameHost.exe", "TextInputHost.exe" };
-        
+        private static readonly List<string> excludedWindows = new List<string> { "SystemSettings.exe", "ApplicationFrameHost.exe", "TextInputHost.exe" };
+
         private ComboBox windowSelector;
         private Process selectedProcess;
         private List<Process> windowProcesses = new List<Process>();
@@ -32,6 +33,9 @@ namespace Artkeeper.ElementClasses
             if (windowSelector.SelectedIndex >= 0)
             {
                 selectedProcess = windowProcesses[windowSelector.SelectedIndex];
+                Dispatcher dispatcher = windowSelector.Dispatcher;
+                dispatcher.Invoke(new Action(() => windowSelector.Text = ""));
+                dispatcher.BeginInvoke(new Action(() => windowSelector.Text = selectedProcess.GetProcessFileName(true, true)));
             }
         }
 
@@ -59,7 +63,7 @@ namespace Artkeeper.ElementClasses
             {
                 Process process = windowProcesses[i];
 
-                windowSelector.Items.Add(process.GetProcessInfoString(true));
+                windowSelector.Items.Add(process.GetProcessInfoString(true, true));
 
                 if (process.Id == currentSelectionId)
                 {
