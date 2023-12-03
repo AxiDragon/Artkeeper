@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         BorderThickness="0"
         ResizeMode="CanMinimize"
-        Title="Artkeeper" Height="391" Width="840"
+        Title="Artkeeper" Height="229" Width="638"
         FontSize="15"
         Background="{StaticResource DarkShade}"
         Foreground="{StaticResource DarkShade}"
