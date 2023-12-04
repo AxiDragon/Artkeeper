@@ -26,6 +26,8 @@ namespace Artkeeper.ElementClasses
             windowSelector.SelectedIndex = 0;
 
             selectedProcess = windowProcesses[0];
+
+            UpdateText();
         }
 
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -33,9 +35,7 @@ namespace Artkeeper.ElementClasses
             if (windowSelector.SelectedIndex >= 0)
             {
                 selectedProcess = windowProcesses[windowSelector.SelectedIndex];
-                Dispatcher dispatcher = windowSelector.Dispatcher;
-                dispatcher.Invoke(new Action(() => windowSelector.Text = ""));
-                dispatcher.BeginInvoke(new Action(() => windowSelector.Text = selectedProcess.GetProcessFileName(true, true)));
+                UpdateText();
             }
         }
 
@@ -72,6 +72,13 @@ namespace Artkeeper.ElementClasses
             }
 
             windowSelector.SelectedIndex = selectionIndex;
+        }
+
+        private void UpdateText()
+        {
+            Dispatcher dispatcher = windowSelector.Dispatcher;
+            dispatcher.Invoke(new Action(() => windowSelector.Text = ""));
+            dispatcher.BeginInvoke(new Action(() => windowSelector.Text = selectedProcess.GetProcessFileName(true, true)));
         }
 
         private List<Process> GetWindowProcesses()
