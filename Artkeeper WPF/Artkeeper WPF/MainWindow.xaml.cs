@@ -1,4 +1,5 @@
 ﻿using Artkeeper.ElementClasses;
+using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,15 @@ namespace Artkeeper
 
             windowProcessSelector = new WindowProcessSelector(windowSelector);
             timerButton.Click += OnTimerButtonClick;
+            windowSelector.SelectionChanged += OnWindowSelectorSelectionChanged;
+        }
+
+        private void OnWindowSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (initialized)
+            {
+                timer.SetProcessToCheckFor(windowProcessSelector.GetProcess());
+            }
         }
 
         public void OnTimerButtonClick(object sender, RoutedEventArgs e)

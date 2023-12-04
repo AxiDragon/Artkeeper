@@ -15,6 +15,7 @@ internal class WindowTimer
         ProcessInfo = process.GetProcessInfoString();
 
         WindowChangeDetector.OnWindowProcessChanged += OnWindowProcessChanged;
+        CheckProcess();
     }
 
     private void OnWindowProcessChanged(Process windowProcess)
@@ -39,13 +40,20 @@ internal class WindowTimer
         SetTimerState(!active);
     }
 
+    public void SetProcessToCheckFor(Process process)
+    {
+        processToCheckFor = process;
+        ProcessInfo = process.GetProcessInfoString();
+        CheckProcess();
+    }
+
     public void SetTimerState(bool active)
     {
         this.active = active;
 
         if (active)
         {
-            OnWindowProcessChanged(WindowChangeDetector.GetCurrentProcess());
+            CheckProcess();
         }
         else
         {
@@ -53,10 +61,12 @@ internal class WindowTimer
         }
     }
 
-    public bool GetTimerState()
+    private void CheckProcess()
     {
-        return active;
+        OnWindowProcessChanged(WindowChangeDetector.GetCurrentProcess());
     }
+
+    public bool GetTimerState() => active;
 
     public TimeSpan GetTimeElapsed()
     {
