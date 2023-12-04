@@ -41,7 +41,19 @@ internal static class WindowChangeDetector
         {
             CurrentWindowProcessPtr = (IntPtr)GetForegroundWindow();
 
-            Thread.Sleep(100);
+            Thread.Sleep(400);
+        }
+    }
+
+    public static Process GetCurrentProcess()
+    {
+        if (GetWindowThreadProcessId(CurrentWindowProcessPtr, out uint processId) != 0)
+        {
+            return Process.GetProcessById((int)processId);
+        }
+        else
+        {
+            return null;
         }
     }
 
