@@ -72,4 +72,9 @@ internal class WindowTimer
     {
         return stopwatch.Elapsed;
     }
+
+    internal void ResetTime()
+    {
+        stopwatch.Reset();
+    }
 }

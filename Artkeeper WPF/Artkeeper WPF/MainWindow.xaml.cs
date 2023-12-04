@@ -59,6 +59,11 @@ namespace Artkeeper
             timerButton.Content = timer.GetTimerState() ? "Stop" : "Start";
         }
 
+        private void ResetTime_Click(object sender, RoutedEventArgs e)
+        {
+            timer.ResetTime();
+        }
+
         private void UpdateLoop()
         {
             while (true)
