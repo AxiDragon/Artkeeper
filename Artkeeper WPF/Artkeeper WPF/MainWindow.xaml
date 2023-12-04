@@ -239,8 +239,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ComboBox Name="WindowSelector" Style="{StaticResource ComboBoxStyle}" Margin="5" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsEditable="True" IsReadOnly="True" Text="Select Window"/>
-        <Label Name="TimerLabel" Style="{StaticResource TimerLabelStyle}" Margin="5" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="00:00:00" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5"/>
-        <Button Style="{StaticResource ButtonStyle}" Margin="5" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Start" Click="TimerButton_ClickStart"/>
+        <ComboBox Name="WindowSelector" Style="{StaticResource ComboBoxStyle}" Margin="5" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+            IsEditable="True" IsReadOnly="True" Text="Select Window"/>
+        <Label Name="TimerLabel" Style="{StaticResource TimerLabelStyle}" Margin="5" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+            Content="00:00:00" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
+        <Button Name="TimerButton" Style="{StaticResource ButtonStyle}" Margin="5" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+            Content="Start"/>
     </Grid>
 </Window>

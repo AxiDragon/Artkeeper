@@ -14,6 +14,8 @@ namespace Artkeeper
         private Label timerLabel;
         private WindowProcessSelector windowProcessSelector;
         private WindowTimer timer;
+        private Button timerButton;
+        private bool initialized = false;
 
         public MainWindow()
         {
@@ -21,18 +23,30 @@ namespace Artkeeper
             WindowChangeDetector.StartActiveWindowChangeDetection();
 
             timerLabel = (Label)FindName("TimerLabel");
+            timerButton = (Button)FindName("TimerButton");
             ComboBox windowSelector = (ComboBox)FindName("WindowSelector");
 
             windowProcessSelector = new WindowProcessSelector(windowSelector);
+            timerButton.Click += OnTimerButtonClick;
         }
 
-        public void TimerButton_ClickStart(object sender, RoutedEventArgs e)
+        public void OnTimerButtonClick(object sender, RoutedEventArgs e)
         {
-            timer = new WindowTimer(windowProcessSelector.GetProcess());
+            if (!initialized)
+            {
+                initialized = true;
+                timer = new WindowTimer(windowProcessSelector.GetProcess());
 
-            updateThread = new Thread(UpdateLoop);
-            updateThread.IsBackground = true;
-            updateThread.Start();
+                updateThread = new Thread(UpdateLoop);
+                updateThread.IsBackground = true;
+                updateThread.Start();
+            }
+            else
+            {
+                timer.ToggleTimer();
+            }
+            
+            timerButton.Content = timer.GetTimerState() ? "Stop" : "Start";
         }
 
         private void UpdateLoop()
