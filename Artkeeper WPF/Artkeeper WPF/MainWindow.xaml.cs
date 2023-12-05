@@ -30,18 +30,30 @@ namespace Artkeeper
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "data.txt"))
             {
                 string data = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "data.txt");
-                float savedSeconds = float.Parse(data);
-                savedTime = TimeSpan.FromSeconds(savedSeconds);
+
+                float savedSeconds;
+                bool success = float.TryParse(data, out savedSeconds);
+
+                if (success)
+                {
+                    savedTime = TimeSpan.FromSeconds(savedSeconds);
+                }
+                else
+                {
+                    savedTime = TimeSpan.Zero;
+                    MessageBox.Show("Failed to load saved time. Resetting the saved time!");
+                }
             }
 
             timerLabel = (Label)FindName("TimerLabel");
             UpdateTimerText();
 
-            timerButton = (Button)FindName("TimerButton");
             ComboBox windowSelector = (ComboBox)FindName("WindowSelector");
 
-            windowProcessSelector = new WindowProcessSelector(windowSelector);
+            timerButton = (Button)FindName("TimerButton");
             timerButton.Click += OnTimerButtonClick;
+
+            windowProcessSelector = new WindowProcessSelector(windowSelector);
             windowSelector.SelectionChanged += OnWindowSelectorSelectionChanged;
 
             Application.Current.Exit += OnApplicationExit;
