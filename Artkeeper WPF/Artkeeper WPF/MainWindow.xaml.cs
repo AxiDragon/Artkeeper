@@ -31,8 +31,8 @@ namespace Artkeeper
             {
                 string data = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "data.txt");
 
-                float savedSeconds;
-                bool success = float.TryParse(data, out savedSeconds);
+                double savedSeconds;
+                bool success = double.TryParse(data, out savedSeconds);
 
                 if (success)
                 {
