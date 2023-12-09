@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
 
 namespace Artkeeper.StaticClasses
 {
     public static class Update
     {
-        private const int sleepTime = 400;
+        private const int sleepTime = 100;
         private static Thread updateThread;
         public static Action OnUpdate = delegate { };
 
@@ -29,7 +28,6 @@ namespace Artkeeper.StaticClasses
             while (true)
             {
                 OnUpdate?.Invoke();
-                Debug.WriteLine("Updated!");
 
                 Thread.Sleep(sleepTime);
             }
