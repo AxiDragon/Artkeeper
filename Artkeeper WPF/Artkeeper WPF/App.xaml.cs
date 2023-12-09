@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Artkeeper.StaticClasses;
+using System.Windows;
 
 namespace Artkeeper
 {
@@ -12,6 +13,7 @@ namespace Artkeeper
             base.OnStartup(e);
 
             WindowChangeDetector.StartActiveWindowChangeDetection();
+            SavingSystem.Initialize();
         }
     }
 }

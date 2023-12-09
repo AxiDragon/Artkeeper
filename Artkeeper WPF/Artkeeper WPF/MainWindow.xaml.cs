@@ -1,7 +1,5 @@
 ﻿using Artkeeper.ElementClasses;
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,24 +25,6 @@ namespace Artkeeper
             InitializeComponent();
             WindowChangeDetector.StartActiveWindowChangeDetection();
 
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "data.txt"))
-            {
-                string data = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "data.txt");
-
-                double savedSeconds;
-                bool success = double.TryParse(data, out savedSeconds);
-
-                if (success)
-                {
-                    savedTime = TimeSpan.FromSeconds(savedSeconds);
-                }
-                else
-                {
-                    savedTime = TimeSpan.Zero;
-                    MessageBox.Show("Failed to load saved time. Resetting the saved time!");
-                }
-            }
-
             timerLabel = (Label)FindName("TimerLabel");
 
             UpdateTimerText();
@@ -56,15 +36,6 @@ namespace Artkeeper
 
             windowProcessSelector = new WindowProcessSelector(windowSelector);
             windowSelector.SelectionChanged += OnWindowSelectorSelectionChanged;
-
-            Application.Current.Exit += OnApplicationExit;
-        }
-
-        private void OnApplicationExit(object sender, ExitEventArgs e)
-        {
-            string path = AppDomain.CurrentDomain.BaseDirectory + "data.txt";
-            Debug.WriteLine(path);
-            File.WriteAllText(path, GetTotalTime().Seconds.ToString());
         }
 
         private void OnWindowSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
