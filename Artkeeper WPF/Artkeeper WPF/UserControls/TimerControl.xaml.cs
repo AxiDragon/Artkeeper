@@ -1,6 +1,6 @@
 ﻿using Artkeeper.ElementClasses;
+using Artkeeper.StaticClasses;
 using System;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,7 +8,6 @@ namespace Artkeeper.UserControls
 {
     public partial class TimerControl : UserControl
     {
-        private Thread updateThread;
         private Label timerLabel;
         private WindowProcessSelector windowProcessSelector;
         private WindowTimer timer;
@@ -49,9 +48,7 @@ namespace Artkeeper.UserControls
                 initialized = true;
                 timer = new WindowTimer(windowProcessSelector.GetProcess());
 
-                updateThread = new Thread(UpdateLoop);
-                updateThread.IsBackground = true;
-                updateThread.Start();
+                Update.OnUpdate += UpdateTimerText;
             }
             else
             {
@@ -74,19 +71,6 @@ namespace Artkeeper.UserControls
                 }
 
                 UpdateTimerText();
-            }
-        }
-
-        private void UpdateLoop()
-        {
-            while (true)
-            {
-                Thread.Sleep(100);
-
-                if (timer != null)
-                {
-                    UpdateTimerText();
-                }
             }
         }
 

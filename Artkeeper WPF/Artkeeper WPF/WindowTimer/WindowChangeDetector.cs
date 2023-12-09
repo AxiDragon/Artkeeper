@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Artkeeper.StaticClasses;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Threading;
 
 internal static class WindowChangeDetector
 {
-    private static Thread detectChangeThread;
-    private static bool runThread = false;
-
     private static IntPtr currentWindowProcessPtr;
 
     public static IntPtr CurrentWindowProcessPtr
@@ -37,12 +34,7 @@ internal static class WindowChangeDetector
 
     private static void DetectActiveWindowChange()
     {
-        while (runThread)
-        {
-            CurrentWindowProcessPtr = (IntPtr)GetForegroundWindow();
-
-            Thread.Sleep(400);
-        }
+        CurrentWindowProcessPtr = (IntPtr)GetForegroundWindow();
     }
 
     public static Process GetCurrentProcess()
@@ -59,20 +51,11 @@ internal static class WindowChangeDetector
 
     public static void StartActiveWindowChangeDetection()
     {
-        if (detectChangeThread != null && detectChangeThread.IsAlive)
-        {
-            return;
-        }
-
-        runThread = true;
-
-        detectChangeThread = new Thread(DetectActiveWindowChange);
-        detectChangeThread.IsBackground = true;
-        detectChangeThread.Start();
+        Update.OnUpdate += DetectActiveWindowChange;
     }
 
     public static void StopActiveWindowChangeDetection()
     {
-        runThread = false;
+        Update.OnUpdate -= DetectActiveWindowChange;
     }
 }

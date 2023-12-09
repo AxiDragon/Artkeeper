@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="StaticClasses\" />
     <Folder Include="WindowTimer\" />
   </ItemGroup>
 

@@ -17,7 +17,7 @@
     </Window.Resources>
     <Grid>
         <StackPanel Background="{StaticResource DarkShade}">
-                <UserControls:TimerControl/>
+            <UserControls:TimerControl/>
         </StackPanel>
     </Grid>
 </Window>

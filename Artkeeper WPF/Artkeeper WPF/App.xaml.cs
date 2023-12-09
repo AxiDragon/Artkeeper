@@ -14,6 +14,7 @@ namespace Artkeeper
 
             WindowChangeDetector.StartActiveWindowChangeDetection();
             SavingSystem.Initialize();
+            Update.Initialize();
         }
     }
 }
