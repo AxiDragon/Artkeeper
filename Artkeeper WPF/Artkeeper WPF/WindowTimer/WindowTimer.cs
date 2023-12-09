@@ -5,13 +5,13 @@ using System.Diagnostics;
 internal class WindowTimer
 {
     private Stopwatch stopwatch = new Stopwatch();
-    private Process processToCheckFor;
+    private string fileNameToCheckFor;
     public string ProcessInfo { private set; get; }
     private bool active = true;
 
     public WindowTimer(Process process)
     {
-        processToCheckFor = process;
+        fileNameToCheckFor = process.Modules[0].FileName;
         ProcessInfo = process.GetProcessInfoString();
 
         WindowChangeDetector.OnWindowProcessChanged += OnWindowProcessChanged;
@@ -25,7 +25,7 @@ internal class WindowTimer
             return;
         }
 
-        if (windowProcess.Modules[0].FileName == processToCheckFor.Modules[0].FileName)
+        if (windowProcess.Modules[0].FileName == fileNameToCheckFor)
         {
             stopwatch.Start();
         }
@@ -42,7 +42,7 @@ internal class WindowTimer
 
     public void SetProcessToCheckFor(Process process)
     {
-        processToCheckFor = process;
+        fileNameToCheckFor = process.Modules[0].FileName;
         ProcessInfo = process.GetProcessInfoString();
         CheckProcess();
     }
