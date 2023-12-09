@@ -13,11 +13,14 @@
         Foreground="{StaticResource DarkShade}"
         FontFamily="{StaticResource Roboto}">
     <Window.Resources>
-        
+
     </Window.Resources>
     <Grid>
-        <StackPanel Background="{StaticResource DarkShade}">
-            <UserControls:TimerControl/>
-        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="TimerStackPanel" Background="{StaticResource DarkShade}">
+                <UserControls:TimerControl/>
+                <Button Content="Add Timer" HorizontalAlignment="Center" Margin="25" Width="500" Click="AddTimer_Click"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
