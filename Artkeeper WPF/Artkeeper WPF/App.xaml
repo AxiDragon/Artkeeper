@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:Artkeeper"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <!--  Constant Styles  -->
         <FontFamily x:Key="Roboto">/Resources/#Roboto</FontFamily>
         <SolidColorBrush x:Key="DarkMain" Color="#78555B"/>
         <Color x:Key="DarkMainColor">#78555B</Color>
@@ -21,5 +22,86 @@
         <Color x:Key="ShadeColor">#6B6063</Color>
         <SolidColorBrush x:Key="LightShade" Color="#EFF9EF"/>
         <Color x:Key="LightShadeColor">#EFF9EF</Color>
+        
+        <!-- TODO: Do this right once I'm actually good at XAML -->
+        
+        <!--  Variables  -->
+        <SolidColorBrush x:Key="DarkVar" Color="{StaticResource DarkMainColor}"/>
+        <Color x:Key="DarkColorVar">#78555B</Color>
+        <SolidColorBrush x:Key="MainVar" Color="{StaticResource MainColor}"/>
+        <Color x:Key="MainColorVar">#D199A3</Color>
+        <SolidColorBrush x:Key="LightVar" Color="{StaticResource LightMainColor}"/>
+        <Color x:Key="LightColorVar">#F2B1BC</Color>
+        <SolidColorBrush x:Key="DarkShadeVar" Color="{StaticResource DarkShadeColor}"/>
+        <Color x:Key="DarkShadeColorVar">#1E191B</Color>
+        <SolidColorBrush x:Key="ShadeVar" Color="{StaticResource ShadeColor}"/>
+        <Color x:Key="ShadeColorVar">#6B6063</Color>
+        <SolidColorBrush x:Key="LightShadeVar" Color="{StaticResource LightShadeColor}"/>
+        <Color x:Key="LightShadeColorVar">#EFF9EF</Color>
+        <CornerRadius x:Key="CornerRadiusVar">15,15,15,15</CornerRadius>
+
+        
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <!-- Parameters: DarkShadeVar, MainVar, CornerRadiusVar-->
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="Foreground" Value="{StaticResource DarkShadeVar}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border BorderThickness="0" Background="{StaticResource MainVar}" CornerRadius="{StaticResource CornerRadiusVar}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <!-- Parameters: DarkShadeVar, MainVar, CornerRadiusVar, LightColorVar, ShadeColorVar, DarkShadeColorVar-->
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="Foreground" Value="{StaticResource DarkShadeVar}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0" Background="{StaticResource MainVar}" CornerRadius="{StaticResource CornerRadiusVar}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.1"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="{StaticResource LightColorVar}"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="{StaticResource LightColorVar}"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="{StaticResource ShadeColorVar}" Duration="0:0:0.0"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="{StaticResource DarkShadeColorVar}" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

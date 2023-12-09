@@ -46,6 +46,7 @@ namespace Artkeeper
             }
 
             timerLabel = (Label)FindName("TimerLabel");
+
             UpdateTimerText();
 
             ComboBox windowSelector = (ComboBox)FindName("WindowSelector");
@@ -89,20 +90,25 @@ namespace Artkeeper
             {
                 timer.ToggleTimer();
             }
-            
+
             timerButton.Content = timer.GetTimerState() ? "Stop" : "Start";
         }
 
         private void ResetTime_Click(object sender, RoutedEventArgs e)
         {
-            savedTime = TimeSpan.Zero;
-         
-            if (timer != null)
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to reset the time?", "Reset Time", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
             {
-                timer.ResetTime();
+                savedTime = TimeSpan.Zero;
+
+                if (timer != null)
+                {
+                    timer.ResetTime();
+                }
+
+                UpdateTimerText();
             }
 
-            UpdateTimerText();
         }
 
         private void UpdateLoop()

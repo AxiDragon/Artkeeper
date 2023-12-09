@@ -7,32 +7,28 @@
         mc:Ignorable="d"
         BorderThickness="0"
         ResizeMode="CanMinimize"
-        Title="Artkeeper" Height="300" Width="638"
+        Title="Artkeeper" Height="600" Width="600"
         FontSize="15"
         Background="{StaticResource DarkShade}"
         Foreground="{StaticResource DarkShade}"
         FontFamily="{StaticResource Roboto}">
     <Window.Resources>
-        <Style x:Key="TimerLabelStyle" TargetType="Label">
-            <Setter Property="FontSize" Value="35"/>
-            <Setter Property="Foreground" Value="{StaticResource DarkShade}"/>
+        <Style x:Key="TimerLabelStyle" TargetType="Label" BasedOn="{StaticResource LabelStyle}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Label">
-                        <Border BorderThickness="0" Background="{StaticResource DarkAccent}" CornerRadius="5,15,15,45">
+                        <Border Background="{StaticResource DarkAccent}" CornerRadius="5,15,15,45">
                             <ContentPresenter HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="FontSize" Value="35"/>
-            <Setter Property="Foreground" Value="{StaticResource DarkShade}"/>
+        <Style x:Key="TimerButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border BorderThickness="0" Background="{StaticResource DarkAccent}" CornerRadius="15,65,65,15">
+                        <Border Background="{StaticResource DarkAccent}" CornerRadius="15,65,65,15">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualStateGroup.Transitions>
@@ -52,6 +48,55 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="{StaticResource ShadeColor}" Duration="0:0:0.0"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="{StaticResource DarkShadeColor}" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ResetButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="ExtraBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{StaticResource DarkMain}" CornerRadius="15,15,15,15">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.1"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="{StaticResource MainColor}"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="{StaticResource MainColor}"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="True">
@@ -231,29 +276,25 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="Reset Timer">
-                    <MenuItem Header="Reset Timer" Click="ResetTime_Click"/>
-                </MenuItem>
-            </Menu>
-            <StackPanel></StackPanel>
-        </DockPanel>
-        <Grid Name="Timer" Width="500" Height="165">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.62*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <ComboBox Name="WindowSelector" Style="{StaticResource ComboBoxStyle}" Margin="5" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+        <StackPanel Background="{StaticResource DarkShade}">
+            <Grid Name="Timer" Width="500" Height="165" Margin="25">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.62*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ComboBox Name="WindowSelector" Style="{StaticResource ComboBoxStyle}" Margin="5" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                 IsEditable="True" IsReadOnly="True" Text="Select Window"/>
-            <Label Name="TimerLabel" Style="{StaticResource TimerLabelStyle}" Margin="5" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                <Label Name="TimerLabel" Style="{StaticResource TimerLabelStyle}" Margin="5" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                 Content="00:00:00" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
-            <Button Name="TimerButton" Style="{StaticResource ButtonStyle}" Margin="5" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                <Button Name="TimerButton" Style="{StaticResource TimerButtonStyle}" Margin="5" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                 Content="Start"/>
-        </Grid>
+                <Button Name="ResetButton" Style="{StaticResource ResetButtonStyle}" Margin="0,5,5,0" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top"
+                Content="X" Click="ResetTime_Click" Width="15" Height="15"/>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>
