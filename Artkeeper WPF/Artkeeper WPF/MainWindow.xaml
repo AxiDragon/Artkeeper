@@ -8,6 +8,7 @@
         BorderThickness="0"
         ResizeMode="CanMinimize"
         Title="Artkeeper" Height="600" Width="600"
+        WindowStyle="None"
         FontSize="15"
         Background="{StaticResource DarkShade}"
         Foreground="{StaticResource DarkShade}"
@@ -63,8 +64,13 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel Name="TimerStackPanel" Background="{StaticResource DarkShade}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <UserControls:StickyHeader Grid.Row="0" Height="35"/>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="TimerStackPanel">
                 <Button Content="Add Timer" Style="{StaticResource AddTimerButtonStyle}" HorizontalAlignment="Center" Margin="25" Width="200" Height="45" Click="AddTimer_Click"/>
             </StackPanel>
         </ScrollViewer>
