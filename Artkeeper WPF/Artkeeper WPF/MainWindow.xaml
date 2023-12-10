@@ -6,12 +6,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         BorderThickness="0"
-        ResizeMode="CanMinimize"
-        Title="Artkeeper" Height="600" Width="600"
+        ResizeMode="CanResize"
+        Title="Artkeeper" 
+        Height="350" Width="550" MinHeight="350" MinWidth="550" MaxWidth="800"
         WindowStyle="None"
         FontSize="15"
         Background="{StaticResource DarkShade}"
         Foreground="{StaticResource DarkShade}"
+        AllowsTransparency="True"
         FontFamily="{StaticResource Roboto}">
     <Window.Resources>
         <Style x:Key="AddTimerButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">

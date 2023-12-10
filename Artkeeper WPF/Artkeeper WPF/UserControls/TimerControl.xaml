@@ -269,7 +269,7 @@
         </Style>
     </UserControl.Resources>
 	<Grid>
-        <Grid Name="Timer" Width="500" Height="165" Margin="25">
+        <Grid Name="Timer" Width="500" Height="165" Margin="0, 25">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.62*"/>
                 <ColumnDefinition Width="1*"/>
