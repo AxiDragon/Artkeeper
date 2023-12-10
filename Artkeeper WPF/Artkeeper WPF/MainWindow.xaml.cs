@@ -42,7 +42,7 @@ namespace Artkeeper
 
         private void UpdateHeaderLabel()
         {
-            if (!IsShuttingDown() && headerLabel.Dispatcher != null)
+            if (!App.IsShuttingDown() && headerLabel.Dispatcher != null)
             {
                 headerLabel.Dispatcher.Invoke(() =>
                 {
@@ -143,24 +143,6 @@ namespace Artkeeper
         {
             timerStackPanel.Children.Remove(timerControl);
             timerControls.Remove(timerControl);
-        }
-
-
-        private bool IsShuttingDown()
-        {
-            if (Application.Current == null)
-            {
-                return true;
-            }
-
-            bool shuttingDown = false;
-
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                shuttingDown = Application.Current.ShutdownMode == ShutdownMode.OnExplicitShutdown;
-            });
-
-            return shuttingDown;
         }
     }
 }

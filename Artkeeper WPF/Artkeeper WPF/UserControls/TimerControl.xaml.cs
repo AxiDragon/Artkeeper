@@ -106,7 +106,7 @@ namespace Artkeeper.UserControls
 
         public void UpdateTimerText()
         {
-            if (!IsShuttingDown() && timerLabel.Dispatcher != null)
+            if (!App.IsShuttingDown() && timerLabel.Dispatcher != null)
             {
                 timerLabel.Dispatcher.Invoke(() =>
                 {
@@ -123,23 +123,6 @@ namespace Artkeeper.UserControls
             }
 
             return savedTime + timer.GetTimeElapsed();
-        }
-
-        private bool IsShuttingDown()
-        {
-            if (Application.Current == null)
-            {
-                return true;
-            }
-
-            bool shuttingDown = false;
-
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                shuttingDown = Application.Current.ShutdownMode == ShutdownMode.OnExplicitShutdown;
-            });
-
-            return shuttingDown;
         }
 
         public TimerControlData GetData()

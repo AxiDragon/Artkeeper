@@ -16,5 +16,21 @@ namespace Artkeeper
             SavingSystem.Initialize();
             Update.Initialize();
         }
+        public static bool IsShuttingDown()
+        {
+            if (Application.Current == null)
+            {
+                return true;
+            }
+
+            bool shuttingDown = false;
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                shuttingDown = Application.Current.ShutdownMode == ShutdownMode.OnExplicitShutdown;
+            });
+
+            return shuttingDown;
+        }
     }
 }
