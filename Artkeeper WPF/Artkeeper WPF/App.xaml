@@ -6,8 +6,8 @@
     <Application.Resources>
         <!--  Constant Styles  -->
         <FontFamily x:Key="Roboto">/Resources/#Roboto</FontFamily>
-        <SolidColorBrush x:Key="DarkMain" Color="#78555B"/>
-        <Color x:Key="DarkMainColor">#78555B</Color>
+        <SolidColorBrush x:Key="DarkMain" Color="#ab6363"/>
+        <Color x:Key="DarkMainColor">#ab6363</Color>
         <SolidColorBrush x:Key="Main" Color="#D199A3"/>
         <Color x:Key="MainColor">#D199A3</Color>
         <SolidColorBrush x:Key="LightMain" Color="#F2B1BC"/>
