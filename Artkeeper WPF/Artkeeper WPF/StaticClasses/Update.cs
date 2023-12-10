@@ -23,7 +23,7 @@ namespace Artkeeper.StaticClasses
             updateThread.Start();
         }
 
-        public static void UpdateLoop()
+        private static void UpdateLoop()
         {
             while (true)
             {

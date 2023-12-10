@@ -64,7 +64,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Content="Artkeeper" FontSize="15" Foreground="{StaticResource DarkShade}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <Label Grid.Column="0" Content="Artkeeper" Name="HeaderLabel" FontSize="15" Foreground="{StaticResource DarkShade}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
         <Thumb Grid.Column="0" x:Name="DragThumb" Cursor="Hand" Opacity="0" HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch" DragDelta="DragThumb_DragDelta"/>
         <Button Grid.Column="1" Click="OnClickMinimize" Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center"  Width="25" Height="25">
             <Path Data="M0,0 L20, 0" Fill="{StaticResource DarkShade}" Stroke="{StaticResource DarkShade}" Height="9" Width="18" Stretch="Fill" StrokeThickness="5" StrokeEndLineCap="Round" StrokeStartLineCap="Round" HorizontalAlignment="Center" VerticalAlignment="Center"/>

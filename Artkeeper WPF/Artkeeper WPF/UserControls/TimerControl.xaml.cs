@@ -115,7 +115,7 @@ namespace Artkeeper.UserControls
             }
         }
 
-        private TimeSpan GetTotalTime()
+        public TimeSpan GetTotalTime()
         {
             if (timer == null)
             {

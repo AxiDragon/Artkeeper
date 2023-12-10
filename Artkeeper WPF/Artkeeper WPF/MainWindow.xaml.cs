@@ -1,5 +1,6 @@
 ﻿using Artkeeper.StaticClasses;
 using Artkeeper.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.Json;
@@ -14,11 +15,15 @@ namespace Artkeeper
     public partial class MainWindow : Window
     {
         private StackPanel timerStackPanel;
+        private Label headerLabel;
         private List<TimerControl> timerControls = new List<TimerControl>();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            StickyHeader stickyHeader = (StickyHeader)FindName("StickyHeader");
+            headerLabel = (Label)stickyHeader.FindName("HeaderLabel");
 
             timerStackPanel = (StackPanel)FindName("TimerStackPanel");
 
@@ -30,6 +35,20 @@ namespace Artkeeper
             }
 
             Application.Current.Exit += OnApplicationExit;
+
+            Update.OnUpdate += UpdateHeaderLabel;
+            UpdateHeaderLabel();
+        }
+
+        private void UpdateHeaderLabel()
+        {
+            if (!IsShuttingDown() && headerLabel.Dispatcher != null)
+            {
+                headerLabel.Dispatcher.Invoke(() =>
+                {
+                    headerLabel.Content = $"Artkeeper - Total Time: {GetTotalTime():hh\\:mm\\:ss}";
+                });
+            }
         }
 
         private void LoadTimers()
@@ -74,6 +93,19 @@ namespace Artkeeper
             SavingSystem.Save();
         }
 
+
+        private TimeSpan GetTotalTime()
+        {
+            TimeSpan totalTime = TimeSpan.Zero;
+
+            for (int i = 0; i < timerControls.Count; i++)
+            {
+                totalTime += timerControls[i].GetTotalTime();
+            }
+
+            return totalTime;
+        }
+
         public void AddTimer_Click(object sender, RoutedEventArgs e)
         {
             AddTimer();
@@ -111,6 +143,24 @@ namespace Artkeeper
         {
             timerStackPanel.Children.Remove(timerControl);
             timerControls.Remove(timerControl);
+        }
+
+
+        private bool IsShuttingDown()
+        {
+            if (Application.Current == null)
+            {
+                return true;
+            }
+
+            bool shuttingDown = false;
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                shuttingDown = Application.Current.ShutdownMode == ShutdownMode.OnExplicitShutdown;
+            });
+
+            return shuttingDown;
         }
     }
 }
