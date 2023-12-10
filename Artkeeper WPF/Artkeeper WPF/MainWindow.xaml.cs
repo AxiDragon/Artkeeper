@@ -140,6 +140,8 @@ namespace Artkeeper
         {
             timerStackPanel.Children.Remove(timerControl);
             timerControls.Remove(timerControl);
+
+            UpdateHeaderLabel();
         }
     }
 }

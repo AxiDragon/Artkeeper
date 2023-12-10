@@ -75,7 +75,6 @@
         <UserControls:StickyHeader x:Name="StickyHeader" Grid.Row="0" Height="35"/>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
             <StackPanel Name="TimerStackPanel">
-                <UserControls:TimerControl></UserControls:TimerControl>
                 <Button Content="Add Timer" Style="{StaticResource AddTimerButtonStyle}" HorizontalAlignment="Center" Margin="25" Width="200" Height="45" Click="AddTimer_Click"/>
             </StackPanel>
         </ScrollViewer>
