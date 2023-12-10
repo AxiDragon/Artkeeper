@@ -65,7 +65,6 @@
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Name="TimerStackPanel" Background="{StaticResource DarkShade}">
-                <UserControls:TimerControl/>
                 <Button Content="Add Timer" Style="{StaticResource AddTimerButtonStyle}" HorizontalAlignment="Center" Margin="25" Width="200" Height="45" Click="AddTimer_Click"/>
             </StackPanel>
         </ScrollViewer>

@@ -1,18 +1,25 @@
-﻿using Artkeeper.Extensions;
-using System;
+﻿using System;
 using System.Diagnostics;
 
 internal class WindowTimer
 {
     private Stopwatch stopwatch = new Stopwatch();
     private string fileNameToCheckFor;
-    public string ProcessInfo { private set; get; }
-    private bool active = true;
+    private bool active;
 
-    public WindowTimer(Process process)
+    public WindowTimer(Process process, bool isActive = false)
     {
+        active = isActive;
         fileNameToCheckFor = process.Modules[0].FileName;
-        ProcessInfo = process.GetProcessInfoString();
+
+        WindowChangeDetector.OnWindowProcessChanged += OnWindowProcessChanged;
+        CheckProcess();
+    }
+
+    public WindowTimer(string fileName, bool isActive = false)
+    {
+        active = isActive;
+        fileNameToCheckFor = fileName;
 
         WindowChangeDetector.OnWindowProcessChanged += OnWindowProcessChanged;
         CheckProcess();
@@ -43,7 +50,12 @@ internal class WindowTimer
     public void SetProcessToCheckFor(Process process)
     {
         fileNameToCheckFor = process.Modules[0].FileName;
-        ProcessInfo = process.GetProcessInfoString();
+        CheckProcess();
+    }
+
+    public void SetProcessToCheckFor(string processFileName)
+    {
+        fileNameToCheckFor = processFileName;
         CheckProcess();
     }
 
@@ -61,20 +73,13 @@ internal class WindowTimer
         }
     }
 
-    private void CheckProcess()
-    {
-        OnWindowProcessChanged(WindowChangeDetector.GetCurrentProcess());
-    }
+    private void CheckProcess() => OnWindowProcessChanged(WindowChangeDetector.GetCurrentProcess());
 
     public bool GetTimerState() => active;
 
-    public TimeSpan GetTimeElapsed()
-    {
-        return stopwatch.Elapsed;
-    }
+    public string GetProcessFileName() => fileNameToCheckFor;
 
-    internal void ResetTime()
-    {
-        stopwatch.Reset();
-    }
+    public TimeSpan GetTimeElapsed() => stopwatch.Elapsed;
+
+    internal void ResetTime() => stopwatch.Reset();
 }

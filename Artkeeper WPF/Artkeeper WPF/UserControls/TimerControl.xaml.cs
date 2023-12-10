@@ -1,4 +1,5 @@
 ﻿using Artkeeper.ElementClasses;
+using Artkeeper.Extensions;
 using Artkeeper.StaticClasses;
 using System;
 using System.Windows;
@@ -12,54 +13,78 @@ namespace Artkeeper.UserControls
         private WindowProcessSelector windowProcessSelector;
         private WindowTimer timer;
         private Button timerButton;
-        private bool initialized = false;
 
-        private TimeSpan savedTime;
+        private TimeSpan savedTime = TimeSpan.Zero;
 
-        public TimerControl()
+        private int id = 0;
+
+        public TimerControl(int id)
         {
             InitializeComponent();
 
+            this.id = id;
+
+            InitializeClass();
+        }
+
+        public TimerControl(TimerControlData data)
+        {
+            InitializeComponent();
+
+            this.id = data.Id;
+            savedTime = data.Time;
+
+            InitializeClass();
+
+            timer.SetProcessToCheckFor(data.ProcessFileName);
+            timer.SetTimerState(data.Active);
+
+            UpdateTimerButtonText();
+
+            windowProcessSelector.UpdateText(data.ProcessFileName.GetProcessFileName(true, true));
+        }
+
+        private void InitializeClass()
+        {
             timerLabel = (Label)FindName("TimerLabel");
-
-            UpdateTimerText();
-
-            ComboBox windowSelector = (ComboBox)FindName("WindowSelector");
 
             timerButton = (Button)FindName("TimerButton");
             timerButton.Click += OnTimerButtonClick;
 
+            Update.OnUpdate += UpdateTimerText;
+
+            UpdateTimerText();
+
+            ComboBox windowSelector = (ComboBox)FindName("WindowSelector");
             windowProcessSelector = new WindowProcessSelector(windowSelector);
+
+            timer = new WindowTimer(windowProcessSelector.GetProcess());
+
             windowSelector.SelectionChanged += OnWindowSelectorSelectionChanged;
+
+            UpdateTimerButtonText();
         }
 
         private void OnWindowSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (initialized)
-            {
-                timer.SetProcessToCheckFor(windowProcessSelector.GetProcess());
-            }
+            timer.SetProcessToCheckFor(windowProcessSelector.GetProcess());
         }
 
         public void OnTimerButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!initialized)
-            {
-                initialized = true;
-                timer = new WindowTimer(windowProcessSelector.GetProcess());
+            timer.ToggleTimer();
 
-                Update.OnUpdate += UpdateTimerText;
-            }
-            else
-            {
-                timer.ToggleTimer();
-            }
+            UpdateTimerButtonText();
+        }
 
+        private void UpdateTimerButtonText()
+        {
             timerButton.Content = timer.GetTimerState() ? "Stop" : "Start";
         }
 
         private void ResetTime_Click(object sender, RoutedEventArgs e)
         {
+
             MessageBoxResult result = MessageBox.Show("Are you sure you want to reset the time?", "Reset Time", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
@@ -110,6 +135,28 @@ namespace Artkeeper.UserControls
             });
 
             return shuttingDown;
+        }
+
+        public TimerControlData GetData()
+        {
+            return new TimerControlData(id, GetTotalTime(), timer.GetProcessFileName(), timer.GetTimerState());
+        }
+    }
+
+    [Serializable]
+    public class TimerControlData
+    {
+        public int Id { get; set; }
+        public TimeSpan Time { get; set; }
+        public string ProcessFileName { get; set; }
+        public bool Active { get; set; }
+
+        public TimerControlData(int id, TimeSpan time, string processFileName, bool active)
+        {
+            Id = id;
+            Time = time;
+            ProcessFileName = processFileName;
+            Active = active;
         }
     }
 }

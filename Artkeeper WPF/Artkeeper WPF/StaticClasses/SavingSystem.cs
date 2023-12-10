@@ -21,7 +21,7 @@ namespace Artkeeper.StaticClasses
 
         private static void OnApplicationExit(object sender, ExitEventArgs e)
         {
-            Save();
+            //Save();
             Debug.WriteLine("Saved data!");
         }
 

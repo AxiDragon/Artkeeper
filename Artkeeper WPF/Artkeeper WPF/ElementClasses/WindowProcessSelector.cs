@@ -81,6 +81,13 @@ namespace Artkeeper.ElementClasses
             dispatcher.BeginInvoke(new Action(() => windowSelector.Text = selectedProcess.GetProcessFileName(true, true)));
         }
 
+        public void UpdateText(string text)
+        {
+            Dispatcher dispatcher = windowSelector.Dispatcher;
+            dispatcher.Invoke(new Action(() => windowSelector.Text = ""));
+            dispatcher.BeginInvoke(new Action(() => windowSelector.Text = text));
+        }
+
         private List<Process> GetWindowProcesses()
         {
             List<Process> windowProcesses = new List<Process>();
