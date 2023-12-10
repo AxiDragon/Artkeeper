@@ -16,13 +16,11 @@ namespace Artkeeper.UserControls
 
         private TimeSpan savedTime = TimeSpan.Zero;
 
-        private int id = 0;
+        public Action<TimerControl> OnRemoveRequested;
 
-        public TimerControl(int id)
+        public TimerControl()
         {
             InitializeComponent();
-
-            this.id = id;
 
             InitializeClass();
         }
@@ -31,7 +29,6 @@ namespace Artkeeper.UserControls
         {
             InitializeComponent();
 
-            this.id = data.Id;
             savedTime = data.Time;
 
             InitializeClass();
@@ -139,21 +136,19 @@ namespace Artkeeper.UserControls
 
         public TimerControlData GetData()
         {
-            return new TimerControlData(id, GetTotalTime(), timer.GetProcessFileName(), timer.GetTimerState());
+            return new TimerControlData(GetTotalTime(), timer.GetProcessFileName(), timer.GetTimerState());
         }
     }
 
     [Serializable]
     public class TimerControlData
     {
-        public int Id { get; set; }
         public TimeSpan Time { get; set; }
         public string ProcessFileName { get; set; }
         public bool Active { get; set; }
 
-        public TimerControlData(int id, TimeSpan time, string processFileName, bool active)
+        public TimerControlData(TimeSpan time, string processFileName, bool active)
         {
-            Id = id;
             Time = time;
             ProcessFileName = processFileName;
             Active = active;

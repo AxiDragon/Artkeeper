@@ -14,7 +14,6 @@ namespace Artkeeper
     {
         private StackPanel timerStackPanel;
         private List<TimerControl> timerControls = new List<TimerControl>();
-        int timerCount = 0;
 
         public MainWindow()
         {
@@ -53,8 +52,6 @@ namespace Artkeeper
                 }
             }
 
-            timers.Sort((timer1, timer2) => timer2.Id.CompareTo(timer1.Id));
-
             for (int i = 0; i < timers.Count; i++)
             {
                 AddTimer(timers[i]);
@@ -78,8 +75,7 @@ namespace Artkeeper
 
         public TimerControl AddTimer()
         {
-            TimerControl timerControl = new TimerControl(timerCount);
-            timerCount++;
+            TimerControl timerControl = new TimerControl();
 
             int index = timerStackPanel.Children.Count - 1;
             timerStackPanel.Children.Insert(index, timerControl);
@@ -92,7 +88,6 @@ namespace Artkeeper
         public TimerControl AddTimer(TimerControlData data)
         {
             TimerControl timerControl = new TimerControl(data);
-            timerCount++;
 
             int index = timerStackPanel.Children.Count - 1;
             timerStackPanel.Children.Insert(index, timerControl);
