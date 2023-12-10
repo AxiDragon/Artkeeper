@@ -62,17 +62,22 @@ namespace Artkeeper.StaticClasses
 
                     return SaveData;
                 }
-                catch (Exception e)
+                catch
                 {
-                    Debug.WriteLine(e);
+                    MessageBox.Show("The save was corrupted, creating a new save.\nDid you mess with the save file?");
                     return new();
                 }
             }
             else
             {
-                Debug.WriteLine("Save data file does not exist, creating a new one!");
                 return new();
             }
+        }
+
+        public static void ClearSaveData()
+        {
+            SaveData = new Dictionary<string, object>();
+            File.Delete(SaveDataPath);
         }
     }
 }

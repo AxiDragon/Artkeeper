@@ -79,10 +79,9 @@ namespace Artkeeper.UserControls
             timerButton.Content = timer.GetTimerState() ? "Stop" : "Start";
         }
 
-        private void ResetTime_Click(object sender, RoutedEventArgs e)
+        private void OnResetTimerClick(object sender, RoutedEventArgs e)
         {
-
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to reset the time?", "Reset Time", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to reset the timer?", "Reset Timer", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 savedTime = TimeSpan.Zero;
@@ -93,6 +92,15 @@ namespace Artkeeper.UserControls
                 }
 
                 UpdateTimerText();
+            }
+        }
+
+        private void OnRemoveTimerClick(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to remove the timer?", "Remove Timer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                OnRemoveRequested?.Invoke(this);
             }
         }
 

@@ -65,7 +65,7 @@
             </Setter>
         </Style>
         <Style x:Key="ResetButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
-            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontSize" Value="7"/>
             <Setter Property="FontWeight" Value="ExtraBold"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -284,8 +284,14 @@
                 Content="00:00:00" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
             <Button Name="TimerButton" Style="{StaticResource TimerButtonStyle}" Margin="5" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                 Content="Start"/>
-            <Button Name="ResetButton" Style="{StaticResource ResetButtonStyle}" Margin="0,5,5,0" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top"
-                Content="X" Click="ResetTime_Click" Width="15" Height="15"/>
+            <Button Name="ResetButton" Style="{StaticResource ResetButtonStyle}" Margin="0,5,18,0" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top"
+                Click="OnResetTimerClick" Width="12" Height="12">
+                <Ellipse Width="8" Height="8" StrokeThickness="2" Stroke="{StaticResource DarkShade}"/>
+            </Button>
+            <Button Name="RemoveButton" Style="{StaticResource ResetButtonStyle}" Margin="0,18,5,0" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top"
+                Click="OnRemoveTimerClick" Width="12" Height="12">
+                <Path Data="M 3.5,3.5 L 8.5,8.5 M 8.5,3.5 L 3.5,8.5"  Stroke="{StaticResource DarkShade}" StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Round" Height="12" Width="12"/>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>

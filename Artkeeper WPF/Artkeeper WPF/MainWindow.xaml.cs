@@ -1,6 +1,7 @@
 ﻿using Artkeeper.StaticClasses;
 using Artkeeper.UserControls;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
@@ -60,6 +61,11 @@ namespace Artkeeper
 
         private void OnApplicationExit(object sender, ExitEventArgs e)
         {
+            //this is currently the only thing saving so it's fine to just save everything
+            SavingSystem.ClearSaveData();
+
+            Debug.WriteLine("Saving " + timerControls.Count + " timers");
+
             for (int i = 0; i < timerControls.Count; i++)
             {
                 SavingSystem.AddNewData($"Timer{i}", timerControls[i].GetData());
@@ -82,6 +88,8 @@ namespace Artkeeper
 
             timerControls.Add(timerControl);
 
+            timerControl.OnRemoveRequested += RemoveTimer;
+
             return timerControl;
         }
 
@@ -94,7 +102,15 @@ namespace Artkeeper
 
             timerControls.Add(timerControl);
 
+            timerControl.OnRemoveRequested += RemoveTimer;
+
             return timerControl;
+        }
+
+        public void RemoveTimer(TimerControl timerControl)
+        {
+            timerStackPanel.Children.Remove(timerControl);
+            timerControls.Remove(timerControl);
         }
     }
 }
