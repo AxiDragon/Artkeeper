@@ -2,7 +2,9 @@
 using Artkeeper.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.Json;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,6 +18,8 @@ namespace Artkeeper
         private StackPanel timerStackPanel;
         private Label headerLabel;
         private List<TimerControl> timerControls = new List<TimerControl>();
+
+        private float autoSaveIntervalMinutes = 3f;
 
         public MainWindow()
         {
@@ -37,6 +41,11 @@ namespace Artkeeper
 
             Update.OnUpdate += UpdateHeaderLabel;
             UpdateHeaderLabel();
+
+            Timer autoSaveTimer = new Timer(1000 * 60 * autoSaveIntervalMinutes);
+            autoSaveTimer.Elapsed += (sender, e) => SaveData();
+            autoSaveTimer.AutoReset = true;
+            autoSaveTimer.Start();
         }
 
         private void UpdateHeaderLabel()
@@ -102,10 +111,15 @@ namespace Artkeeper
                 SavingSystem.AddNewData($"Timer{i}", timerControls[i].GetData());
             }
 
-            SavingSystem.AddNewData("WindowWidth", Width);
-            SavingSystem.AddNewData("WindowHeight", Height);
+            Dispatcher.Invoke(() =>
+            {
+                SavingSystem.AddNewData("WindowWidth", Width);
+                SavingSystem.AddNewData("WindowHeight", Height);
+            });
 
             SavingSystem.Save();
+
+            Debug.WriteLine("Saved!");
         }
 
         private TimeSpan GetTotalTime()
