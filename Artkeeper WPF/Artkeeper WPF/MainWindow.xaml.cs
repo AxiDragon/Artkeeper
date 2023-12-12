@@ -26,7 +26,7 @@ namespace Artkeeper
 
             timerStackPanel = (StackPanel)FindName("TimerStackPanel");
 
-            LoadTimers();
+            Load();
 
             if (timerControls.Count == 0)
             {
@@ -50,7 +50,7 @@ namespace Artkeeper
             }
         }
 
-        private void LoadTimers()
+        private void Load()
         {
             Dictionary<string, object> saveData = SavingSystem.SaveData;
             List<TimerControlData> timers = new List<TimerControlData>();
@@ -69,6 +69,16 @@ namespace Artkeeper
                         //ignore
                     }
                 }
+
+                if (pair.Key == "WindowWidth")
+                {
+                    Width = JsonSerializer.Deserialize<double>(pair.Value.ToString());
+                }
+
+                if (pair.Key == "WindowHeight")
+                {
+                    Height = JsonSerializer.Deserialize<double>(pair.Value.ToString());
+                }
             }
 
             for (int i = 0; i < timers.Count; i++)
@@ -79,6 +89,11 @@ namespace Artkeeper
 
         private void OnApplicationExit(object sender, ExitEventArgs e)
         {
+            SaveData();
+        }
+
+        private void SaveData()
+        {
             //this is currently the only thing saving so it's fine to just save everything
             SavingSystem.ClearSaveData();
 
@@ -87,9 +102,11 @@ namespace Artkeeper
                 SavingSystem.AddNewData($"Timer{i}", timerControls[i].GetData());
             }
 
+            SavingSystem.AddNewData("WindowWidth", Width);
+            SavingSystem.AddNewData("WindowHeight", Height);
+
             SavingSystem.Save();
         }
-
 
         private TimeSpan GetTotalTime()
         {
