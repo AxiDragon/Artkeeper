@@ -15,6 +15,7 @@ namespace Artkeeper
             WindowChangeDetector.StartActiveWindowChangeDetection();
             SavingSystem.Initialize();
             Update.Initialize();
+            ArtkeeperEventManager.Initialize();
         }
         public static bool IsShuttingDown()
         {

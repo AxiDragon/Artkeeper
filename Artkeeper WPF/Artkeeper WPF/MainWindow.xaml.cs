@@ -37,6 +37,8 @@ namespace Artkeeper
                 AddTimer();
             }
 
+            ArtkeeperEventManager.EVENT_COLLECTION[EventCollection.ResetAllTimers] += ResetTimers;
+
             Application.Current.Exit += OnApplicationExit;
 
             Update.OnUpdate += UpdateHeaderLabel;
@@ -173,6 +175,13 @@ namespace Artkeeper
             timerControls.Remove(timerControl);
 
             UpdateHeaderLabel();
+        }
+        private void ResetTimers()
+        {
+            for (int i = 0; i < timerControls.Count; i++)
+            {
+                timerControls[i].ResetTimer();
+            }
         }
     }
 }

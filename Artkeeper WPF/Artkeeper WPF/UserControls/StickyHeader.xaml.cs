@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Artkeeper.StaticClasses;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Artkeeper.UserControls
@@ -22,6 +24,15 @@ namespace Artkeeper.UserControls
             if (mainWindow != null && mainWindow.WindowState == WindowState.Normal)
             {
                 mainWindow.WindowState = WindowState.Minimized;
+            }
+        }
+
+        private void OnClickReset(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to reset ALL timers?", "Reset Timers", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                ArtkeeperEventManager.EVENT_COLLECTION[EventCollection.ResetAllTimers]();
             }
         }
 

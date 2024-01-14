@@ -63,13 +63,17 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Column="0" Content="Artkeeper" Name="HeaderLabel" FontSize="15" Foreground="{StaticResource DarkShade}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
         <Thumb Grid.Column="0" x:Name="DragThumb" Cursor="Hand" Opacity="0" HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch" DragDelta="DragThumb_DragDelta"/>
-        <Button Grid.Column="1" Click="OnClickMinimize" Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center"  Width="25" Height="25">
+        <Button Grid.Column="1" Click="OnClickReset" Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10, 0" Width="25" Height="25">
+            <Ellipse Width="17" Height="17" StrokeThickness="4" Stroke="{StaticResource DarkShade}"/>
+        </Button>
+        <Button Grid.Column="2" Click="OnClickMinimize" Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center"  Width="25" Height="25">
             <Path Data="M0,0 L20, 0" Fill="{StaticResource DarkShade}" Stroke="{StaticResource DarkShade}" Height="9" Width="18" Stretch="Fill" StrokeThickness="5" StrokeEndLineCap="Round" StrokeStartLineCap="Round" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
-        <Button Grid.Column="2" Click="OnClickClose" Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10, 0" Width="25" Height="25">
+        <Button Grid.Column="3" Click="OnClickClose" Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10, 0" Width="25" Height="25">
             <Path Data="M 3.5,3.5 L 8.5,8.5 M 8.5,3.5 L 3.5,8.5"  Stroke="{StaticResource DarkShade}" StrokeThickness="5" StrokeEndLineCap="Round" StrokeStartLineCap="Round" Height="15" Width="15" Stretch="Fill"/>
         </Button>
     </Grid>
